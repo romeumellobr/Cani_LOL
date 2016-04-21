@@ -1,8 +1,36 @@
-/* 
-https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/pannh?api_key=20eee516-2bf6-46e8-995a-e19e4d8d1fab
-https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/
-?api_key=20eee516-2bf6-46e8-995a-e19e4d8d1fab
+/*
+{"11871399": [{
+   "queue": "RANKED_SOLO_5x5",
+   "name": "Vayne's Patriots",
+   "entries": [{
+      "leaguePoints": 44,
+      "isFreshBlood": false,
+      "isHotStreak": false,
+      "division": "II",
+      "isInactive": false,
+      "isVeteran": false,
+      "losses": 54,
+      "playerOrTeamName": "Pannh",
+      "playerOrTeamId": "11871399",
+      "wins": 54
+   }],
+   "tier": "BRONZE"
+}]}
+
+.entries.losses + .entries.wins / entries.wins * 100 usando math_ceil() pra aredondar pra cima
+
+entries.division
+tier
+
+
+https://br.api.pvp.net/api/lol/br/v2.5/league/by-summoner/
+11871399
+/entry
 */
+//usar um servidor depois para nao expor a key
+//preciso ver se precisa esconder a key no app
+var api_key = "?api_key=20eee516-2bf6-46e8-995a-e19e4d8d1fab";
+
 var app = angular.module('myApp', []);
 
 //Service 'versionLol' injetada no controller
@@ -17,7 +45,7 @@ $scope.buscaInvocador = function() {
 	//removendo espaço usando regex e deixando tudo minusculo
 	var nome = $scope.nomeInvocador.replace(/\s/g, '').toLowerCase();
 	
-	return $http.get('https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/' + nome + '?api_key=20eee516-2bf6-46e8-995a-e19e4d8d1fab')
+	return $http.get('https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/' + nome + api_key)
 			.success(function(response) {
 				$scope.resposta = (response[nome]);
 
