@@ -1,0 +1,38 @@
+<html ng-app="myApp">
+<head>
+	<title>Busca de partida ativa pelo nome</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script type="text/javascript" src="js/MainController.js"></script>
+	<link rel="stylesheet" type="text/css" href="">
+</head>
+<body ng-controller="myController">
+
+<h1>Busca:</h1>
+<div>
+	<div>
+		<input type="text" placeholder="Nome do invocador" ng-model="nomeInvocador"></input>
+		<button type="button" ng-click="buscaInvocador()">OK!</button>
+	</div>
+	<hr/>
+	<div>
+		{{ nomeInvocador }}
+	</div>
+</div>
+
+<h2>Dados do Jogador:</h2>
+<div>
+<h2>
+ID: {{ resposta.id }}
+<br />
+Nome: {{ resposta.name }}
+<br />
+Icone: <img ng-src="http://ddragon.leagueoflegends.com/cdn/{{ version }}/img/profileicon/{{ resposta.profileIconId }}.png">
+<br />
+Level: {{ resposta.summonerLevel }}
+<br />
+
+</h2>
+</div>
+
+</body>
+</html>
