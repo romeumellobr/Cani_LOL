@@ -14,9 +14,7 @@
 		<button type="button" ng-click="buscaInvocador()">OK!</button>
 	</div>
 	<hr/>
-	<div>
-		{{ nomeInvocador }}
-	</div>
+	
 </div>
 
 <h2>Dados do Jogador:</h2>
@@ -30,6 +28,12 @@ Icone: <img ng-src="http://ddragon.leagueoflegends.com/cdn/{{ version }}/img/pro
 <br />
 Level: {{ resposta.summonerLevel }}
 <br />
+Tier: {{ perform.tier }}({{ perform.division }}) {{ perform.leaguePoints }} PDL
+<br />
+Taxa de vitorias: 
+{{ perform.winRate }}%
+<br />
+Vitorias {{ perform.wins }} | Derrotas: {{ perform.losses }}
 
 </h2>
 </div>

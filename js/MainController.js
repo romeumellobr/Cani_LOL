@@ -22,10 +22,10 @@ entries.wins / .entries.losses + .entries.wins * 100 usando math_ceil() pra ared
 entries.division
 tier
 
-
 https://br.api.pvp.net/api/lol/br/v2.5/league/by-summoner/
 11871399
 /entry
+
 */
 //usar um servidor depois para nao expor a key
 //preciso ver se precisa esconder a key no app
@@ -41,6 +41,7 @@ app.controller('myController', ['$scope','$http','versionLol', function ($scope,
     $scope.version = data[0];
   });
 
+
 $scope.buscaInvocador = function() { 
 	//removendo espaço usando regex e deixando tudo minusculo
 	var nome = $scope.nomeInvocador.replace(/\s/g, '').toLowerCase();
@@ -48,8 +49,27 @@ $scope.buscaInvocador = function() {
 	return $http.get('https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/' + nome + api_key)
 			.success(function(response) {
 				$scope.resposta = (response[nome]);
+        var resp = $scope.resposta.id;
+        
+        return $http.get('https://br.api.pvp.net/api/lol/br/v2.5/league/by-summoner/' + resp + '/entry' + api_key)
+      .success(function(dataC) {
+        $scope.perform = dataC[resp];
+        $scope.perform.tier = $scope.perform[0].tier;
+        $scope.perform.division = $scope.perform[0].entries[0].division;
+        $scope.perform.leaguePoints = $scope.perform[0].entries[0].leaguePoints;
+        $scope.perform.wins = $scope.perform[0].entries[0].wins;
+        $scope.perform.losses = $scope.perform[0].entries[0].losses;
 
-				console.log($scope.resposta);
+        //funcao para calcular taxa de vitórias, ainda falta função para colocar as casas decimais exemplo 51.9
+        $scope.perform.winRate =  Math.floor(($scope.perform[0].entries[0].wins / ($scope.perform[0].entries[0].wins + $scope.perform[0].entries[0].losses)) * 100);
+
+        console.log($scope.perform.winRate);
+      })
+       .error(function(err) { 
+              return err; 
+ 
+            });
+
 			})
 			 .error(function(err) { 
               return err; 
