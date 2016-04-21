@@ -17,7 +17,7 @@
    "tier": "BRONZE"
 }]}
 
-.entries.losses + .entries.wins / entries.wins * 100 usando math_ceil() pra aredondar pra cima
+entries.wins / .entries.losses + .entries.wins * 100 usando math_ceil() pra aredondar pra cima
 
 entries.division
 tier
